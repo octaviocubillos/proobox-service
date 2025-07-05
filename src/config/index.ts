@@ -7,7 +7,7 @@ export default {
     nodeEnv: config("NODE_ENV", 'development'),
 
     appId: config("appId", "STORAGE_DEV"),
-    storagePath: config("STORAGE_PATH", "."),
+    storagePath: config("STORAGE_PATH", "./storage"),
     db: {
         mongoUrl: config("MONGO_URL", "http://127.0.0.1:2015/dev/api/v1/mongo"),
         mongoToken: config("MONGO_TOKEN", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.wv7sVaBu5q4mCYxslk3iT9jFTz13Qa_L5kceUGskP9k"),

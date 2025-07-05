@@ -1,7 +1,7 @@
 @local=http://localhost:3000/api
 
 ###
-POST {{local}}/upload/storage
+POST {{local}}/upload/proobox
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -19,3 +19,6 @@ Content-Type: text/plain
 
 < ./testcopy.txt
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+GET {{local}}/download/proobox/test/hello-world/latest/1751740188408-hello-world-latest.json

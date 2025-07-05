@@ -18,6 +18,7 @@ import storageController from '../controller/storage.controller';
 const router = express.Router();
 
 router.post('/upload/*path',/*  multerUpload.single('file'), */ storageController.post);
+router.get('/download/*path',/*  multerUpload.single('file'), */ storageController.get);
 
 
 export default router; 

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import fs from 'fs';
 import multer from 'multer';
 import config from '../config';
@@ -6,39 +6,35 @@ import BaseController from '../utils/baseController';
 
 export default new class StorageController extends BaseController {
 
-    // get = async (req: Request, res: Response) => {
-    //     try {
-    //         const {id} = req.params
-    //         const {query} = this.filterQuery(req.query, ["fullname"])
-    //         console.log(req.headers)
-    //         const options = JSON.parse(req.header("options") || "{}")
-
-    //         const patient = await (id? patientsService.get(id): patientsService.filter(query, options)); 
-    //         this.resSuccess(res, patient)
+    get = async (req: Request, res: Response) => {
+        try {
+            console.log([...req.params.path].join("/"))
+            // this.resSuccess(res, true)
+            res.download([...req.params.path].join("/"))
             
-    //     } catch (error) {
-    //         this.resError(res, error)
-    //     }
-    // };
+        } catch (error) {
+            this.resError(res, error)
+        }
+    };
 
     storage =  multer.diskStorage({
-        destination: function (req, file, cb) {
+        destination: function (req: Request, file, cb: Function) {
             const path = [...req.params.path].join("/")
             const fullUploadPath = `${config.storagePath}/${path}`
             if (!fs.existsSync(fullUploadPath)){
-                fs.mkdirSync(fullUploadPath);
+                fs.mkdirSync(fullUploadPath, {recursive: true});
             }
             cb(null, fullUploadPath);
         },
-        filename: function (req, file, cb) {
-            cb(null, `${Date.now()}-${file.originalname}`);
+        filename: function (req: Request, file, cb: Function) {
+            cb(null, `${file.originalname}`);
         }
     })  
     
 
     post = async (req: Request, res: Response) => {
         try {
-
+            console.log(req.headers.authorization)
             // esta logica sirve para agregar storage por config
             const upload = multer({
                 limits: {
@@ -52,7 +48,7 @@ export default new class StorageController extends BaseController {
                     console.error(err)
                     return this.resError(res, err)
                 }
-                return this.resSuccess(res, true, JSON.stringify(req.files));
+                return this.resSuccess(res, req.files);
             });
             
         } catch (error) {
