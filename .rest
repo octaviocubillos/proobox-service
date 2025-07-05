@@ -1,0 +1,21 @@
+@local=http://localhost:3000/api
+
+###
+POST {{local}}/upload/storage
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="test.txt"
+Content-Type: text/plain
+
+< ./test.txt
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="testcopy.txt"
+Content-Type: text/plain
+
+< ./testcopy.txt
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
